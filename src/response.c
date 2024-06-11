@@ -53,7 +53,7 @@ void handle_request(int client_socket) {
         }
 
         size_t bytes_read = fread(content, 1, file_stat.st_size, file);
-        if (bytes_read != file_stat.st_size) {
+        if (bytes_read != (size_t)file_stat.st_size) {
             send_response(client_socket, 500, "Internal Server Error", NULL, 0);
             fclose(file);
             free(content);
