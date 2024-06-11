@@ -13,4 +13,7 @@
 
 void start_server() {
     int server_fd, new_socket;
+    struct sockaddr_in address;
+    int opt = 1;
+    int addrlen = sizeof(address);
 }
