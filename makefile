@@ -9,9 +9,12 @@ TARGET = $(BINDIR)/webserver
 
 $(shell mkdir -p $(BINDIR))
 
-.PHONY: all clean
+.PHONY: all clean run
 
 all: $(TARGET)
+
+run: $(TARGET)
+	./$(TARGET)
 
 $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) $^ -o $@
