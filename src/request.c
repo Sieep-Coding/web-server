@@ -31,4 +31,32 @@ Request *parse_request(char *buffer, size_t buffer_size) {
         free(request);
         return NULL;
     }
+
+    request->path = malloc(path_end - path_start + 1);
+    if (request->path == NULL) {
+        free(request->method);
+        free(request);
+        return NULL;
+    }
+    strncpy(request->path, path_start, path_end - path_start);
+    request->path[path_end - path_start] = '\0';
+
+    char *protocol_start = path_end + 1;
+    request->protocol = malloc(buffer_size - (protocol_start - buffer) + 1);
+    if (request->protocol == NULL) {
+        free(request->method);
+        free(request->path);
+        free(request);
+        return NULL;
+    }
+    strcpy(request->protocol, protocol_start);
+
+    return request;
+}
+
+void free_request(Request *request) {
+    free(request->method);
+    free(request->path);
+    free(request->protocol);
+    free(request);
 }
